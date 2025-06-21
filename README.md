@@ -1,105 +1,118 @@
-# 🧠 Brain Tumor Classification using MRI Images
+# 🧠 Brain Tumor Classification from MRI Scans using Deep Learning
 
-This project focuses on classifying brain tumors using MRI images into four categories using deep learning. The aim is to support early detection of brain tumors, which plays a vital role in determining effective treatment and improving patient outcomes.
+<p align="center">
+  <img src="assets/brain.jpg" alt="MRI Brain Tumor Sample" width="500"/>
+</p>
 
----
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.9-blue?style=flat-square&logo=python" />
+  <img src="https://img.shields.io/badge/TensorFlow-2.12-orange?style=flat-square&logo=tensorflow" />
+  <img src="https://img.shields.io/badge/Keras-Deep%20Learning-red?style=flat-square&logo=keras" />
+  <img src="https://img.shields.io/badge/CNN-Model-6f42c1?style=flat-square" />
+  <img src="https://img.shields.io/badge/Accuracy-89.7%25-brightgreen?style=flat-square" />
+</p>
 
-## 📚 About the Dataset
-
-The dataset used is from Kaggle: [**Brain Tumor MRI Dataset**](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset/data)
-
-This dataset is a combination of:
-
-- **Figshare**
-- **SARTAJ Dataset** *(some glioma images were removed due to mislabeling)*
-- **Br35H**
-
-### 📊 Dataset Details:
-
-- 📷 **Total Images**: 7023 brain MRI scans
-- 🧠 **Classes**:
-  - Glioma
-  - Meningioma
-  - Pituitary
-  - No Tumor (from Br35H)
-
-> ⚠️ *Note: The image sizes vary. During preprocessing, all images are resized and unnecessary margins are removed to enhance model accuracy and generalization.*
+This project leverages deep learning to classify brain tumors from MRI images into four categories: **Glioma**, **Meningioma**, **Pituitary**, and **No Tumor**. The goal is to assist early diagnosis and improve clinical decision-making.
 
 ---
 
-## 🧪 Methods
+## 📂 Dataset
 
-This project uses a **Convolutional Neural Network (CNN)** architecture to:
+The dataset is sourced from [Kaggle](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset/data), and it combines multiple open-access datasets:
 
-- Detect and classify brain tumors into four distinct categories
-- Train a single multi-task model rather than multiple individual models
-- Export the model in multiple formats for deployment
+- Figshare
+- SARTAJ (with mislabeled images removed)
+- Br35H (for "No Tumor" class)
 
-The full training and evaluation process is documented in the notebook: `brain_tumor_classification.ipynb`.
+### Dataset Summary:
+
+- 🖼️ Total Images: **7,023** MRI brain scans
+- 🔍 Classes:
+  - **Glioma**
+  - **Meningioma**
+  - **Pituitary**
+  - **No Tumor**
+
+During preprocessing, images are resized, and unnecessary black margins are removed to improve model performance.
 
 ---
 
-## 🏗️ Model Deployment
+## 🧠 Model Architecture
 
-After training, the model was exported in the following formats:
+A custom **Convolutional Neural Network (CNN)** was built and trained using TensorFlow and Keras. Key highlights include:
 
-- ✅ **SavedModel** (`/models/saved_model`)
-- ✅ **TensorFlow Lite** (`/models/tflite`)
-- ✅ **TensorFlow.js** (`/models/tfjs`)
+- Image preprocessing (resizing, cropping, normalization)
+- Data augmentation using `ImageDataGenerator`
+- Regularization: Dropout and BatchNormalization
+- Optimizer: **Adam**
+- Loss Function: **Categorical Crossentropy**
+
+### 🧪 Evaluation Results:
+
+- ✅ **Training Accuracy**: 96%
+- ✅ **Validation Accuracy**: 89.4%
+- ✅ **Test Accuracy**: 93.73%
+
+Visualization of training progress (accuracy & loss) is available in the notebook.
+
+---
+
+## ⚙️ Training Strategy
+
+Several callbacks were used to optimize model training:
+
+- **EarlyStopping**: Prevents overfitting
+- **ReduceLROnPlateau**: Dynamically lowers learning rate
+- **ModelCheckpoint**: Saves the best model weights
+
+---
+
+## 📦 Model Export
+
+The final trained model is exported into multiple formats for versatile deployment:
+
+- 🧠 **SavedModel** format: `/saved_model`
+- 📱 **TensorFlow Lite (.tflite)**: `/tflite`
+- 🌐 **TensorFlow.js**: `/tfjs_model`
+
+These formats enable deployment to mobile apps, web apps, and embedded devices.
 
 ---
 
 ## 📁 Project Structure
+
 ```
-├───tfjs_model             # TensorFlow.js model files
-|   ├───group1-shard1of1.bin
-|   └───model.json
-├───tflite                 # TensorFlow Lite model
-|   ├───model.tflite
-|   └───label.txt
-├───saved_model            # Saved model format
-|   ├───variables
-|   |   ├───variables.data-00000-of-00001
-|   |   └───variables.index
-|   ├───saved_model.pb
-|   └───variables
-├── Submission_Akhir_Novrian_Pratama.ipynb  # Complete workflow
-├── requirements.txt          # Python dependencies
-└── README.md                 # This documentation
+├── assets/ # Images, charts, etc.
+├── saved_model/ # SavedModel format
+├── tflite/ # TFLite model files
+├── tfjs_model/ # TensorFlow.js files
+├── Submission_Akhir_Novrian_Pratama.ipynb # Notebook (full workflow)
+├── requirements.txt # Python dependencies
+└── README.md # Project documentation
 ```
 
 ---
 
-## 🚀 How to Run
+## 🚀 Getting Started
 
-1. Clone the repository and open the notebook.
-2. Upload your `kaggle.json` API token to access the dataset.
-3. Run the notebook to:
-   - Download and preprocess the dataset
-   - Train and evaluate the CNN model
-   - Export the model in multiple formats
+### 1. Clone this repository
 
----
+```bash
+git clone https://github.com/your-username/brain-tumor-classification.git
+cd brain-tumor-classification
+```
 
-## 📎 Additional Notes
+### 2. Install dependencies
 
-- The model achieved over **85% accuracy** on both training and testing datasets.
-- Visualization of accuracy and loss across epochs is included in the notebook.
-- EarlyStopping, ReduceLROnPlateau, and ModelCheckpoint callbacks were used to optimize performance and prevent overfitting.
+```bash
+pip install -r requirements.txt
+```
 
----
+### 3. Run the notebook
 
-## 🔗 Dataset Link
+Open the notebook Submission_Akhir_Novrian_Pratama.ipynb and execute it step by step:
 
-> [Brain Tumor MRI Dataset – Kaggle](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset/data)
-
----
-
-## ✉️ Contact
-
-If you have questions or suggestions, feel free to contact:
-
-**Novrian Pratama**  
-📧 novrianprtama2@gmail.com
-
----
+- Download the dataset (via Kaggle API)
+- Preprocess images
+- Train the CNN model
+- Export the model formats
